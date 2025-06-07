@@ -1,0 +1,986 @@
+/* Van Gogh Inspired Love Map Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Playfair Display', serif;
+    background: #0a0a0a;
+    overflow: hidden;
+    height: 100vh;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.starry-night-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.van-gogh-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg') center/cover no-repeat;
+    filter: brightness(0.8) contrast(1.1);
+    z-index: 1;
+}
+
+.van-gogh-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 20, 40, 0.3);
+    z-index: 2;
+}
+
+/* Interactive Points - Mobile Optimized */
+.point {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s ease;
+    touch-action: manipulation;
+}
+
+.point:hover,
+.point:active {
+    transform: scale(1.3);
+}
+
+.point-1 {
+    top: 20%;
+    left: 15%;
+}
+
+.point-2 {
+    top: 55%;
+    left: 75%;
+}
+
+.point-3 {
+    top: 35%;
+    left: 40%;
+}
+
+.point-glow {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(255, 255, 140, 0.6), transparent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.point-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    background: #ffeb3b;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 25px rgba(255, 235, 59, 0.8);
+    border: 3px solid #fff;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Mobile-First Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(20px);
+    padding: 10px;
+}
+
+.modal-content {
+background: url(https://th.bing.com/th/id/R.4bf9ecb73881d629cfdafa80e3f27b3a?rik=35W8AfiZo2Xe5g&pid=ImgRaw&r=0);
+background-size: cover;
+    border-radius: 25px;
+    padding: 25px;
+    width: 100%;
+    max-width: 95vw;
+    max-height: 95vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 
+        0 25px 80px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 0 3px rgba(255, 235, 59, 0.3);
+    animation: modalAppear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 4px solid transparent;
+    background-clip: padding-box;
+}
+
+
+@keyframes borderGlow {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 400% 400%; }
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.7) rotate(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: rgba(255, 235, 59, 0.1);
+    border: 2px solid #ffeb3b;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: #ffeb3b;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    z-index: 1001;
+}
+
+.close-button:hover,
+.close-button:active {
+    background: rgba(255, 235, 59, 0.2);
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 235, 59, 0.5);
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.modal-title-decoration {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffeb3b, transparent);
+    margin: 0 auto 10px;
+    border-radius: 2px;
+}
+
+.modal-header h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.2em;
+    color: #ffeb3b;
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(255, 235, 59, 0.3);
+    margin: 0;
+    position: relative;
+    line-height: 1.2;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+
+
+.frame-corner {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ffeb3b;
+}
+
+.frame-corner.top-left {
+    top: 3px;
+    left: 3px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.frame-corner.top-right {
+    top: 3px;
+    right: 3px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.frame-corner.bottom-left {
+    bottom: 3px;
+    left: 3px;
+    border-right: none;
+    border-top: none;
+}
+
+.frame-corner.bottom-right {
+    bottom: 3px;
+    right: 3px;
+    border-left: none;
+    border-top: none;
+}
+
+.modal-text-container {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 235, 59, 0.2);
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.text-ornament {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ffeb3b, transparent);
+    margin: 0 auto;
+    width: 50%;
+    border-radius: 1px;
+}
+
+.text-ornament.top {
+    margin-bottom: 15px;
+}
+
+.text-ornament.bottom {
+    margin-top: 15px;
+}
+
+.modal-text-container p {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.1em;
+    color: #fff;
+    line-height: 1.6;
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    font-style: italic;
+    margin: 0;
+}
+
+/* Mobile-Optimized Music Player */
+.music-player {
+    background: linear-gradient(145deg, #1a1a2e, #16213e);
+    border-radius: 15px;
+    padding: 20px;
+    border: 2px solid rgba(255, 235, 59, 0.3);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.player-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.vinyl-record {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(145deg, #2c2c2c, #1a1a1a);
+    border-radius: 50%;
+    position: relative;
+    animation: vinylSpin 3s linear infinite;
+    flex-shrink: 0;
+}
+
+.vinyl-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background: #ffeb3b;
+    border-radius: 50%;
+}
+
+.vinyl-groove {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25px;
+    height: 25px;
+    border: 2px solid rgba(255, 235, 59, 0.3);
+    border-radius: 50%;
+}
+
+@keyframes vinylSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.player-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2em;
+    color: #ffeb3b;
+    font-weight: 600;
+    text-align: center;
+}
+
+.player-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.main-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.play-pause-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #ffeb3b, #ffc107);
+    border: none;
+    color: #1a1a2e;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 235, 59, 0.3);
+    touch-action: manipulation;
+    flex-shrink: 0;
+}
+
+.play-pause-btn:hover,
+.play-pause-btn:active {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(255, 235, 59, 0.5);
+}
+
+.progress-container {
+    flex: 1;
+    min-width: 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffeb3b, #ff9800);
+    width: 0%;
+    transition: width 0.1s ease;
+    border-radius: 4px;
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Crimson Text', serif;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.volume-slider {
+    width: 100px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #ffeb3b;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #ffeb3b;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced Rose Styles */
+.rose-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+    display: none;
+}
+
+.rose {
+    position: relative;
+    width: 120px;
+    height: 140px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    touch-action: manipulation;
+}
+
+.rose:hover,
+.rose:active {
+    transform: scale(1.1);
+}
+
+.rose-center {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle, #8b0000, #a52a2a);
+    border-radius: 50%;
+    z-index: 10;
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
+}
+
+.petal {
+    position: absolute;
+    background: linear-gradient(45deg, #dc143c, #b22222, #8b0000);
+    border-radius: 50% 50% 50% 0;
+    transform-origin: bottom left;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.petal-1 {
+    width: 35px;
+    height: 45px;
+    top: 12px;
+    left: 42px;
+    transform: rotate(0deg);
+}
+
+.petal-2 {
+    width: 40px;
+    height: 50px;
+    top: 8px;
+    left: 48px;
+    transform: rotate(45deg);
+}
+
+.petal-3 {
+    width: 35px;
+    height: 45px;
+    top: 18px;
+    left: 58px;
+    transform: rotate(90deg);
+}
+
+.petal-4 {
+    width: 40px;
+    height: 50px;
+    top: 30px;
+    left: 52px;
+    transform: rotate(135deg);
+}
+
+.petal-5 {
+    width: 35px;
+    height: 45px;
+    top: 35px;
+    left: 42px;
+    transform: rotate(180deg);
+}
+
+.petal-6 {
+    width: 40px;
+    height: 50px;
+    top: 30px;
+    left: 30px;
+    transform: rotate(225deg);
+}
+
+.petal-7 {
+    width: 35px;
+    height: 45px;
+    top: 18px;
+    left: 25px;
+    transform: rotate(270deg);
+}
+
+.petal-8 {
+    width: 40px;
+    height: 50px;
+    top: 8px;
+    left: 30px;
+    transform: rotate(315deg);
+}
+
+.stem {
+    position: absolute;
+    bottom: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 70px;
+    background: linear-gradient(to bottom, #228b22, #006400);
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.leaf {
+    position: absolute;
+    background: linear-gradient(45deg, #32cd32, #228b22);
+    border-radius: 50% 0 50% 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.leaf-1 {
+    width: 25px;
+    height: 18px;
+    bottom: -35px;
+    left: 30px;
+    transform: rotate(45deg);
+}
+
+.leaf-2 {
+    width: 22px;
+    height: 15px;
+    bottom: -50px;
+    right: 30px;
+    transform: rotate(-45deg);
+}
+
+/* Enhanced Rose Explosion */
+.rose.exploding .petal {
+    animation: petalExplode 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.rose.exploding .rose-center {
+    animation: centerExplode 1.2s ease-out forwards;
+}
+
+@keyframes petalExplode {
+    0% {
+        transform: translate(0, 0) rotate(var(--initial-rotation, 0deg)) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(calc(var(--x) * 0.7), calc(var(--y) * 0.7)) rotate(calc(var(--initial-rotation, 0deg) + 360deg)) scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--x), var(--y)) rotate(calc(var(--initial-rotation, 0deg) + 720deg)) scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes centerExplode {
+    0% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(-50%) scale(1.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateX(-50%) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Love Message */
+.love-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    display: none;
+    text-align: center;
+    animation: loveAppear 1s ease-out;
+}
+
+.love-message h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3em;
+    color: #ff1744;
+    text-shadow: 
+        0 0 20px rgba(255, 23, 68, 0.8),
+        0 0 40px rgba(255, 23, 68, 0.6),
+        0 0 60px rgba(255, 23, 68, 0.4);
+    animation: heartbeat 2s infinite;
+    line-height: 1.2;
+}
+
+@keyframes loveAppear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Progress Indicator */
+.progress-indicator {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    z-index: 12;
+}
+
+.progress-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid #ffeb3b;
+    transition: all 0.3s ease;
+}
+
+.progress-dot.visited {
+    background: #ffeb3b;
+    box-shadow: 0 0 15px rgba(255, 235, 59, 0.8);
+}
+
+/* Instructions */
+.instructions {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 12;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.instructions p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3em;
+    color: #ffeb3b;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    animation: instructionGlow 3s infinite;
+    line-height: 1.3;
+}
+
+@keyframes instructionGlow {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Mobile Specific Optimizations */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 20px;
+        margin: 5px;
+        border-radius: 50px;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.8em;
+    }
+    
+    .modal-text-container {
+        padding: 15px;
+    }
+    
+    .modal-text-container p {
+        font-size: 1em;
+        line-height: 1.5;
+    }
+    
+    .image-frame img {
+        height: 180px;
+    }
+    
+    .music-player {
+        padding: 15px;
+    }
+    
+    .player-header {
+        margin-bottom: 12px;
+    }
+    
+    .player-title {
+        font-size: 1.1em;
+    }
+    
+    .main-controls {
+        gap: 12px;
+    }
+    
+    .play-pause-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .progress-bar {
+        height: 6px;
+    }
+    
+    .time-display {
+        font-size: 0.8em;
+    }
+    
+    .volume-slider {
+        width: 80px;
+        height: 5px;
+    }
+    
+    .love-message h1 {
+        font-size: 2.2em;
+    }
+    
+    .instructions p {
+        font-size: 1.1em;
+    }
+    
+    .point {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .point-glow {
+        width: 75px;
+        height: 75px;
+        top: -15px;
+        left: -15px;
+    }
+    
+    .point-core {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 15px;
+        margin: 3px;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.6em;
+    }
+    
+    .modal-body {
+        gap: 15px;
+    }
+    
+    .image-frame {
+        padding: 8px;
+    }
+    
+    .image-frame img {
+        height: 150px;
+    }
+    
+    .modal-text-container {
+        padding: 12px;
+    }
+    
+    .modal-text-container p {
+        font-size: 0.95em;
+    }
+    
+    .music-player {
+        padding: 12px;
+    }
+    
+    .player-title {
+        font-size: 1em;
+    }
+    
+    .vinyl-record {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .vinyl-center {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .vinyl-groove {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .play-pause-btn {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .volume-control {
+        gap: 8px;
+    }
+    
+    .volume-slider {
+        width: 70px;
+    }
+    
+    .love-message h1 {
+        font-size: 1.8em;
+    }
+    
+    .instructions p {
+        font-size: 1em;
+    }
+    
+    .progress-indicator {
+        top: 15px;
+        right: 15px;
+        gap: 6px;
+    }
+    
+    .progress-dot {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .rose {
+        width: 100px;
+        height: 120px;
+    }
+    
+    .close-button {
+        width: 45px;
+        height: 45px;
+        top: 10px;
+        right: 15px;
+    }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+    .modal-content {
+        max-height: 90vh;
+        padding: 15px;
+    }
+    
+    .modal-header {
+        margin-bottom: 15px;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.5em;
+    }
+    
+    .modal-body {
+        gap: 12px;
+    }
+    
+    .image-frame img {
+        height: 120px;
+    }
+    
+    .modal-text-container {
+        padding: 10px;
+    }
+    
+    .modal-text-container p {
+        font-size: 0.9em;
+        line-height: 1.4;
+    }
+    
+    .music-player {
+        padding: 10px;
+    }
+    
+    .instructions {
+        bottom: 10px;
+    }
+    
+    .instructions p {
+        font-size: 0.9em;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .point:active {
+        transform: scale(1.4);
+    }
+    
+    .close-button:active {
+        transform: rotate(90deg) scale(1.2);
+    }
+    
+    .play-pause-btn:active {
+        transform: scale(1.2);
+    }
+    
+    .rose:active {
+        transform: scale(1.2);
+    }
+}
+
+

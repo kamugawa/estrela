@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Noite Estrelada do Amor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Great+Vibes&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="starry-night-container">
+        <!-- Audio elements -->
+        <audio id="backgroundMusic" loop>
+            <source src="1.mp3" type="audio/mp3">
+           
+        </audio>
+        
+        <!-- Van Gogh background -->
+        <div class="van-gogh-background"></div>
+        
+        <!-- Interactive points -->
+        <div class="point point-1" data-point="1">
+            <div class="point-glow"></div>
+            <div class="point-core"></div>
+        </div>
+        
+        <div class="point point-2" data-point="2">
+            <div class="point-glow"></div>
+            <div class="point-core"></div>
+        </div>
+        
+        <div class="point point-3" data-point="3">
+            <div class="point-glow"></div>
+            <div class="point-core"></div>
+        </div>
+        
+        <!-- Modal for point details -->
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal-content">
+                <button class="close-button" id="closeModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                
+                <div class="modal-header">
+                    <div class="modal-title-decoration"></div>
+                    <h2 id="modalTitle"></h2>
+                    <div class="modal-title-decoration"></div>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="modal-image-container">
+                        <div class="image-frame">
+                            <img id="modalImage" src="" alt="">
+                            <div class="frame-corner top-left"></div>
+                            <div class="frame-corner top-right"></div>
+                            <div class="frame-corner bottom-left"></div>
+                            <div class="frame-corner bottom-right"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-text-container">
+                        <div class="text-ornament top"></div>
+                        <p id="modalText"></p>
+                        <div class="text-ornament bottom"></div>
+                    </div>
+                    
+                    <div class="music-player">
+                        <div class="player-header">
+                            <div class="vinyl-record">
+                                <div class="vinyl-center"></div>
+                                <div class="vinyl-groove"></div>
+                            </div>
+                            <span class="player-title">Música Especial</span>
+                        </div>
+                        <div class="player-controls">
+                            <div class="main-controls">
+                                <button class="play-pause-btn" id="playPauseBtn">
+                                    <svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5,3 19,12 5,21"></polygon>
+                                    </svg>
+                                    <svg class="pause-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                                        <rect x="6" y="4" width="4" height="16"></rect>
+                                        <rect x="14" y="4" width="4" height="16"></rect>
+                                    </svg>
+                                </button>
+                                <div class="progress-container">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="progressFill"></div>
+                                    </div>
+                                    <div class="time-display">
+                                        <span id="currentTime">0:00</span>
+                                        <span id="duration">0:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="volume-control">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="11,5 6,9 2,9 2,15 6,15 11,19"></polygon>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                </svg>
+                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="70">
+                            </div>
+                        </div>
+                        <audio id="modalMusic" preload="metadata"></audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Rose container -->
+        <div class="rose-container" id="roseContainer">
+            <div class="rose" id="rose">
+                <div class="rose-center"></div>
+                <div class="petal petal-1"></div>
+                <div class="petal petal-2"></div>
+                <div class="petal petal-3"></div>
+                <div class="petal petal-4"></div>
+                <div class="petal petal-5"></div>
+                <div class="petal petal-6"></div>
+                <div class="petal petal-7"></div>
+                <div class="petal petal-8"></div>
+                <div class="stem"></div>
+                <div class="leaf leaf-1"></div>
+                <div class="leaf leaf-2"></div>
+            </div>
+        </div>
+        
+        <!-- Love message -->
+        <div class="love-message" id="loveMessage">
+            <h1>Eu te amo ❤️</h1>
+        </div>
+        
+        <!-- Progress indicator -->
+        <div class="progress-indicator">
+            <div class="progress-dot" data-point="1"></div>
+            <div class="progress-dot" data-point="2"></div>
+            <div class="progress-dot" data-point="3"></div>
+        </div>
+        
+        <!-- Instructions -->
+        <div class="instructions">
+            <p>Clique nos pontos luminosos para ver as obras de Van Gogh . . .</p>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>
